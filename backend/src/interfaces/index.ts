@@ -1,3 +1,4 @@
-import { user, userReturn } from "./user.interfaces";
+import { user, UserRepo } from "./user.interfaces";
+import { MedicoCreate, MedicoReturn, MedicoRead } from "./medico.interfaces";
 
-export { user, userReturn }
+export { user, UserRepo, MedicoCreate, MedicoReturn, MedicoRead }

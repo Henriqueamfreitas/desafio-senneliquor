@@ -1,13 +1,13 @@
 import { compare } from "bcryptjs"
 import { AppError } from "../errors/App.error"
-import { userRepo } from "../repositories"
+import {userRepositories} from "../repositories"
 import { User } from "../entities/User.entity"
 import { sign } from "jsonwebtoken"
 import { user } from "../interfaces"
 
 const userLogin = async (payload: user): Promise<string> => {
     const { username, password } = payload
-    const user: User | null = await userRepo.findOne({ where: { username } })
+    const user: User | null = await userRepositories.findOne({ where: { username } })
     
     if(!user){
         throw new AppError("Invalid credentials", 401)
