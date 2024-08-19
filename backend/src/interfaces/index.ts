@@ -1,15 +1,19 @@
 import { user, UserRepo } from "./user.interfaces";
-import { MedicoCreate, MedicoReturn, MedicoRead } from "./medico.interfaces";
+import { MedicoCreate, MedicoRead, MedicoReturn } from "./medico.interfaces";
 import { HospitalCreate, HospitalRead, HospitalReturn } from "./hospital.interfaces";
+import { ChamadoCreate, ChamadoRead, ChamadoReturn } from "./chamado.interfaces";
 
 export { 
     user,
     UserRepo, 
     MedicoCreate, 
-    MedicoReturn, 
     MedicoRead,
+    MedicoReturn, 
     HospitalCreate,
     HospitalRead,
-    HospitalReturn 
+    HospitalReturn,
+    ChamadoCreate,
+    ChamadoRead,
+    ChamadoReturn 
 }
  
