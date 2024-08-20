@@ -1,0 +1,374 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "API de Gerenciamento de Chamados",
+      "description": "API para gerenciar chamados, hospitais, médicos e usuários.",
+      "version": "1.0.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/chamados": {
+        "post": {
+          "summary": "Cria um novo chamado",
+          "tags": ["Chamados"],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ChamadoCreate"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Chamado criado com sucesso",
+              "schema": {
+                "$ref": "#/definitions/ChamadoReturn"
+              }
+            },
+            "400": {
+              "description": "Erro de validação"
+            },
+            "409": {
+              "description": "Conflito, chamado já existente"
+            }
+          }
+        },
+        "get": {
+          "summary": "Retorna todos os chamados",
+          "tags": ["Chamados"],
+          "responses": {
+            "200": {
+              "description": "Lista de chamados",
+              "schema": {
+                "$ref": "#/definitions/ChamadoRead"
+              }
+            }
+          }
+        }
+      },
+      "/chamados/{nr_chamado}": {
+        "get": {
+          "summary": "Retorna um chamado específico",
+          "tags": ["Chamados"],
+          "parameters": [
+            {
+              "name": "nr_chamado",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Chamado encontrado",
+              "schema": {
+                "$ref": "#/definitions/ChamadoReturn"
+              }
+            },
+            "404": {
+              "description": "Chamado não encontrado"
+            }
+          }
+        }
+      },
+      "/hospitais": {
+        "post": {
+          "summary": "Cria um novo hospital",
+          "tags": ["Hospitais"],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/HospitalCreate"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Hospital criado com sucesso",
+              "schema": {
+                "$ref": "#/definitions/HospitalReturn"
+              }
+            },
+            "400": {
+              "description": "Erro de validação"
+            },
+            "409": {
+              "description": "Conflito, hospital já existente"
+            }
+          }
+        },
+        "get": {
+          "summary": "Retorna todos os hospitais",
+          "tags": ["Hospitais"],
+          "responses": {
+            "200": {
+              "description": "Lista de hospitais",
+              "schema": {
+                "$ref": "#/definitions/HospitalRead"
+              }
+            }
+          }
+        }
+      },
+      "/hospitais/{cd_hospital}": {
+        "get": {
+          "summary": "Retorna um hospital específico",
+          "tags": ["Hospitais"],
+          "parameters": [
+            {
+              "name": "cd_hospital",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Hospital encontrado",
+              "schema": {
+                "$ref": "#/definitions/HospitalReturn"
+              }
+            },
+            "404": {
+              "description": "Hospital não encontrado"
+            }
+          }
+        }
+      },
+      "/medicos": {
+        "post": {
+          "summary": "Cria um novo médico",
+          "tags": ["Médicos"],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/MedicoCreate"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Médico criado com sucesso",
+              "schema": {
+                "$ref": "#/definitions/MedicoReturn"
+              }
+            },
+            "400": {
+              "description": "Erro de validação"
+            },
+            "409": {
+              "description": "Conflito, médico já existente"
+            }
+          }
+        },
+        "get": {
+          "summary": "Retorna todos os médicos",
+          "tags": ["Médicos"],
+          "responses": {
+            "200": {
+              "description": "Lista de médicos",
+              "schema": {
+                "$ref": "#/definitions/MedicoRead"
+              }
+            }
+          }
+        }
+      },
+      "/medicos/{cd_medico}": {
+        "get": {
+          "summary": "Retorna um médico específico",
+          "tags": ["Médicos"],
+          "parameters": [
+            {
+              "name": "cd_medico",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Médico encontrado",
+              "schema": {
+                "$ref": "#/definitions/MedicoReturn"
+              }
+            },
+            "404": {
+              "description": "Médico não encontrado"
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "summary": "Realiza login de usuário",
+          "tags": ["Usuários"],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/UserLogin"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Login realizado com sucesso",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Credenciais inválidas"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "ChamadoCreate": {
+        "type": "object",
+        "properties": {
+          "hospital": {
+            "type": "integer"
+          },
+          "ie_tipo_chamado": {
+            "type": "string"
+          },
+          "nm_paciente": {
+            "type": "string"
+          },
+          "ie_sexo": {
+            "type": "string"
+          },
+          "ie_status_chamado": {
+            "type": "string"
+          },
+          "medico": {
+            "type": "integer"
+          }
+        },
+        "required": ["hospital"]
+      },
+      "ChamadoReturn": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/definitions/ChamadoCreate"
+          },
+          {
+            "properties": {
+              "nr_chamado": {
+                "type": "integer"
+              }
+            }
+          }
+        ]
+      },
+      "ChamadoRead": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ChamadoReturn"
+        }
+      },
+      "HospitalCreate": {
+        "type": "object",
+        "properties": {
+          "nm_hospital": {
+            "type": "string"
+          },
+          "nr_latitude": {
+            "type": "number"
+          },
+          "nr_longitude": {
+            "type": "number"
+          }
+        },
+        "required": ["nm_hospital", "nr_latitude", "nr_longitude"]
+      },
+      "HospitalReturn": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/definitions/HospitalCreate"
+          },
+          {
+            "properties": {
+              "cd_hospital": {
+                "type": "integer"
+              }
+            }
+          }
+        ]
+      },
+      "HospitalRead": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/HospitalReturn"
+        }
+      },
+      "MedicoCreate": {
+        "type": "object",
+        "properties": {
+          "nm_medico": {
+            "type": "string"
+          }
+        },
+        "required": ["nm_medico"]
+      },
+      "MedicoReturn": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/definitions/MedicoCreate"
+          },
+          {
+            "properties": {
+              "cd_medico": {
+                "type": "integer"
+              }
+            }
+          }
+        ]
+      },
+      "MedicoRead": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/MedicoReturn"
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["username", "password"]
+    }
+  }
+}
+  
