@@ -1,5 +1,13 @@
+import { useContext } from "react";
+import { ChamadoContext } from "../../contexts/ChamadoContext";
+import { ChamadoList } from "../../components/ChamadoList";
+
 export const DashBoardPage = () => {
-    return(
-        <h1>DashboardPage</h1>
+    const { chamadoList } = useContext(ChamadoContext);
+    return (
+        <>
+            <h1>DashboardPage</h1>
+            <ChamadoList />
+        </>
     )
 }

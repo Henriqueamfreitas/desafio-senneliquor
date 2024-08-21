@@ -1,3 +1,4 @@
+import { ChamadoProvider } from "./contexts/ChamadoContext"
 import { UserProvider } from "./contexts/UserContext"
 import { RoutesMain } from "./routes/RoutesMain"
 
@@ -5,7 +6,9 @@ function App() {
   return (
     <>
       <UserProvider>
-        <RoutesMain />
+        <ChamadoProvider>
+          <RoutesMain />
+        </ChamadoProvider>
       </UserProvider>
     </>
   )

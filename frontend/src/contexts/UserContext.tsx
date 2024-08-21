@@ -44,7 +44,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         } catch (error) {
             const currentError = error as AxiosError<string>
             console.log(currentError)
-            toast.error(currentError.response?.data, {
+            toast.error(currentError.response?.data.message, {
                 autoClose: 2000
             })
         }
