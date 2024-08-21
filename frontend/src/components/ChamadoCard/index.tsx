@@ -1,29 +1,4 @@
-
-interface IMedico {
-    cd_medico: number, 
-    nm_medico: string
-}
-
-interface IHospital {
-    cd_hospital: number, 
-    nm_hospital: string, 
-    nr_latitude: number, 
-    nr_longitude: number
-}
-
-export interface IChamado {
-    hospital: IHospital, 
-    ie_sexo: string,
-    ie_status_chamado: string,
-    ie_tipo_chamado: string,
-    medico?: IMedico,
-    nm_paciente: string,
-    nr_chamado: number,
-}
-
-interface IChamadoCardProps {
-    chamado: IChamado
-}
+import { IChamadoCardProps } from "../../interfaces/ChamadoInterfaces"
 
 export const ChamadoCard = ({ chamado }: IChamadoCardProps) => {
     return (

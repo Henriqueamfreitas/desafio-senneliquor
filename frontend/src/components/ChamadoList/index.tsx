@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { ChamadoContext } from "../../contexts/ChamadoContext"
 import { ChamadoCard } from "../ChamadoCard"
-import { IChamado } from "../ChamadoCard"
+import { IChamado } from "../../interfaces/ChamadoInterfaces"
 
 export const ChamadoList = () => {
     const { chamadoList } = useContext(ChamadoContext)

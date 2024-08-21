@@ -1,27 +1,13 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
 import { api } from "../services/api";
 import 'react-toastify/dist/ReactToastify.css';
 import { AxiosError } from "axios";
 import { TLoginFormValues } from "../components/LoginForm/loginFormSchema";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
-interface IUserContext {
-    loginUser: (loginData: TLoginFormValues) => Promise<void>,
-    logoutUser:() => void,
-}
+import { IUserContext, UserProviderProps } from "../interfaces/UserInterfaces";
 
 export const UserContext = createContext({} as IUserContext);
-
-interface UserProviderProps {
-    children: React.ReactNode
-}
-
-interface IUser {
-    email: string,
-    name: string,
-    id: number,
-}
 
 export const UserProvider = ({ children }: UserProviderProps) => {
     const navigate = useNavigate()
