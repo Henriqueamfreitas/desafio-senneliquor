@@ -25,9 +25,7 @@ export const ChamadoProvider = ({ children }: IChamadoProviderProps) => {
                 setIsLoading(false)
             }
         }
-        if (token){
-            getChamado()
-        }
+        getChamado()
     }, [])
 
 

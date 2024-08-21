@@ -19,7 +19,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
             const token = (response.data.token)
             localStorage.setItem("@senneLiquorTOKEN", token)
             setTimeout(() => {
-                navigate("/dashboard")
+                navigate("/lista-chamados")
             },
                 3500
             )
