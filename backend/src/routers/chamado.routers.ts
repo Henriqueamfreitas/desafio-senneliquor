@@ -21,4 +21,9 @@ chamadoRouter.get("/:nr_chamado",
     chamadoControllers.retrieve
 );
 
+chamadoRouter.patch("/:nr_chamado",
+    middlewares.verifyToken,
+    chamadoControllers.patch
+);
+
 export default { chamadoRouter };

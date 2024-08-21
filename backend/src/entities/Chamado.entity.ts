@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Hospital, Medico } from "../entities"
 
 @Entity()
@@ -7,6 +7,7 @@ export class Chamado {
   nr_chamado: number;
 
   @ManyToOne(() => Hospital)
+  @JoinColumn({ name: 'hospitalCdHospital' })
   hospital: Hospital;
 
   @Column({ type: 'char', length: 1, nullable: true })
@@ -22,5 +23,6 @@ export class Chamado {
   ie_status_chamado: string;
 
   @ManyToOne(() => Medico, { nullable: true })
+  @JoinColumn({ name: 'medicoCdMedico' })
   medico: Medico;
 }

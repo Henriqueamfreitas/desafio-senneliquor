@@ -1,6 +1,6 @@
 import { chamadoRepositories, hospitalRepositories, medicoRepositories } from "../repositories";
 import { Chamado } from "../entities";
-import { ChamadoCreate, ChamadoReturn } from "../interfaces";
+import { ChamadoCreate, ChamadoReturn, ChamadoUpdate } from "../interfaces";
 import { chamadoSchemas } from "../schemas";
 import { AppError } from "../errors";
 
@@ -36,13 +36,30 @@ const retrieve = async (chamadoId: number): Promise<ChamadoReturn> => {
     const chamado = await chamadoRepositories.findOne({
         relations: ['medico', 'hospital'],
         where: {
-        nr_chamado: chamadoId,
-      },
+            nr_chamado: chamadoId,
+        },
     });
-  
+
     if (!chamado) throw new AppError("Chamado not found", 404);
-  
+
     return chamadoSchemas.chamadoReturnSchema.parse(chamado);
 };
 
-export default { create, read, retrieve };
+const patch = async (chamadoId: number, payload: ChamadoUpdate): Promise<ChamadoReturn> => {
+    const chamado = await chamadoRepositories.findOne({
+        relations: ['medico', 'hospital'],
+        where: {
+            nr_chamado: chamadoId,
+        },
+    });
+    if (!chamado) throw new AppError("Chamado not found", 404);
+    await chamadoRepositories.save({ ...chamado, ...payload });
+    const chamado_updated = await chamadoRepositories.findOne({
+        relations: ['medico', 'hospital'],
+        where: {
+            nr_chamado: chamadoId,
+        },
+    });
+    return chamadoSchemas.chamadoReturnSchema.parse(chamado_updated);
+}
+export default { create, read, retrieve, patch };
