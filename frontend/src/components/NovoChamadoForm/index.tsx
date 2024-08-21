@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { NovoChamadoFormSchema, TNovoChamadoFormValues } from "./NovoChamadoFormSchema";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext";
 import { ToastContainer } from 'react-toastify'
 import { InputDiv } from "../InputDiv";
 import { ChamadoContext } from "../../contexts/ChamadoContext";
@@ -19,18 +18,24 @@ export const NovoChamadoForm = () => {
     const { hospitalList } = useContext(HospitalContext);
     const { medicoList } = useContext(MedicoContext);
 
-    const navigate = useNavigate()
-
-
     const submit = (formData: TNovoChamadoFormValues) => {
         const hospital = hospitalList.filter(hospital => hospital.nm_hospital === formData.nm_hospital)
-        const hospital_cd = hospital[0].cd_hospital
+        let hospital_cd = null
+        if (hospital.length > 0) {
+            hospital_cd = hospital[0].cd_hospital
+        } else {
+            const maiorCdHospital = Math.max(...hospitalList.map(hospital => hospital.cd_hospital));
+            hospital_cd = maiorCdHospital + 1
+        }
 
         let medico_cd = null
-        if(formData.nm_medico !== ""){
+        if (formData.nm_medico !== "") {
             const medico = medicoList.filter(medico => medico.nm_medico === formData.nm_medico)
-            if(medico.length > 0){
+            if (medico.length > 0) {
                 medico_cd = medico[0].cd_medico
+            } else {
+                const maiorCdMedico = Math.max(...medicoList.map(medico => medico.cd_medico));
+                medico_cd = maiorCdMedico + 1
             }
         }
 

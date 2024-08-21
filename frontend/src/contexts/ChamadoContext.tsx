@@ -38,7 +38,7 @@ export const ChamadoProvider = ({ children }: IChamadoProviderProps) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            toast.success(" redirected to the home page", {
+            toast.success("Chamado criado com sucesso", {
                 autoClose: 2000
             })
 

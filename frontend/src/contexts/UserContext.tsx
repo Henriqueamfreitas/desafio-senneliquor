@@ -16,6 +16,10 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         try {
             const response = await api.post("/login", loginData)
             const token = (response.data.token)
+            const decodedToken = JSON.parse(atob(token.split('.')[1]));
+            const expirationDate = new Date(decodedToken.exp * 1000);
+    
+            localStorage.setItem("@senneLiquorTokenExpiration", expirationDate.toISOString());
             localStorage.setItem("@senneLiquorTOKEN", token)
             setTimeout(() => {
                 navigate("/lista-chamados")
