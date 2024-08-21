@@ -8,9 +8,14 @@ const create = async (payload: ChamadoCreate): Promise<ChamadoReturn> => {
     const hospital = await hospitalRepositories.findOneBy({ cd_hospital: payload.hospital });
     if (!hospital) throw new AppError("Hospital not found", 404);
 
-    const medico = payload.medico
-        ? await medicoRepositories.findOneBy({ cd_medico: payload.medico })
-        : null;
+    let medico = null
+    // const medico = payload.medico
+    //     ? await medicoRepositories.findOneBy({ cd_medico: payload.medico })
+    //     : null;
+    if (payload.medico) {
+        const searched_medico = await medicoRepositories.findOneBy({ cd_medico: payload.medico })
+        if (!searched_medico) throw new AppError("Medico not found", 404);
+    }
 
     const chamado = chamadoRepositories.create({
         hospital,
