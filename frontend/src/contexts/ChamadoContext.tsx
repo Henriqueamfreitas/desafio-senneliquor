@@ -1,7 +1,9 @@
 import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import 'react-toastify/dist/ReactToastify.css';
-import { IChamado, IChamadoContext, IChamadoProviderProps } from "../interfaces/ChamadoInterfaces";
+import { IChamado, IChamadoContext, IChamadoProviderProps, ICreateChamado } from "../interfaces/ChamadoInterfaces";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 export const ChamadoContext = createContext({} as IChamadoContext);
 
@@ -28,10 +30,30 @@ export const ChamadoProvider = ({ children }: IChamadoProviderProps) => {
         getChamado()
     }, [])
 
+    const createChamado = async (newChamado: ICreateChamado) => {
+        const token = localStorage.getItem("@senneLiquorTOKEN")
+        try {
+            await api.post("/chamados", newChamado, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            toast.success(" redirected to the home page", {
+                autoClose: 2000
+            })
+
+        } catch (error) {
+            const currentError = error as AxiosError<string>
+            console.log(currentError)
+            toast.error(currentError.response?.data.message, {
+                autoClose: 2000
+            })
+        }
+    }
 
     return (
         <ChamadoContext.Provider
-            value={{ chamadoList }}
+            value={{ chamadoList, createChamado }}
         >
             {children}
         </ChamadoContext.Provider>

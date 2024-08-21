@@ -1,4 +1,6 @@
 import { ChamadoProvider } from "./contexts/ChamadoContext"
+import { HospitalProvider } from "./contexts/HospitalContext"
+import { MedicoProvider } from "./contexts/MedicoContext"
 import { UserProvider } from "./contexts/UserContext"
 import { RoutesMain } from "./routes/RoutesMain"
 
@@ -7,7 +9,11 @@ function App() {
     <>
       <UserProvider>
         <ChamadoProvider>
-          <RoutesMain />
+          <HospitalProvider>
+            <MedicoProvider>
+              <RoutesMain />
+            </MedicoProvider>
+          </HospitalProvider>
         </ChamadoProvider>
       </UserProvider>
     </>

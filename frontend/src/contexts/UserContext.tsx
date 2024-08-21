@@ -11,7 +11,6 @@ export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: UserProviderProps) => {
     const navigate = useNavigate()
-    const token = localStorage.getItem("@senneLiquorTOKEN")
 
     const loginUser = async (loginData: TLoginFormValues) => {
         try {
@@ -21,7 +20,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
             setTimeout(() => {
                 navigate("/lista-chamados")
             },
-                3500
+                2500
             )
             toast.success("You are being redirected to the home page", {
                 autoClose: 2000

@@ -11,16 +11,25 @@ export interface IChamado {
     nr_chamado: number,
 }
 
+export interface ICreateChamado {
+    hospital: number, 
+    ie_sexo: string,
+    ie_status_chamado: string,
+    ie_tipo_chamado: string,
+    medico?: number | null,
+    nm_paciente: string,
+}
+
 export interface IChamadoProviderProps {
     children: React.ReactNode
 }
 
-
 export interface IChamadoContext {
-    chamadoList: IChamado[]
+    chamadoList: IChamado[],
+    createChamado: (newChamado: ICreateChamado) => Promise<void>
 }
 
 
 export interface IChamadoCardProps {
-    chamado: IChamado
+    chamado: IChamado,
 }

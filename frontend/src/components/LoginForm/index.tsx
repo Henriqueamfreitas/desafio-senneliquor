@@ -14,9 +14,6 @@ export const LoginForm = () => {
 
     const { loginUser } = useContext(UserContext);
 
-    const navigate = useNavigate()
-
-
     const submit = (formData: TLoginFormValues) => {
         loginUser(formData)
     }
@@ -25,24 +22,28 @@ export const LoginForm = () => {
             <h2>LOGIN</h2>
 
             <InputDiv
+                is_select={false}
+                label="Username"
                 type="text"
                 placeholder="username"
                 {...register("username")}
                 error={
-                    errors.username ? 
-                    <p>{errors.username.message}</p> 
-                    : null
+                    errors.username ?
+                        <p>{errors.username.message}</p>
+                        : null
                 }
             />
 
             <InputDiv
+                is_select={false}
+                label="Senha"
                 type="password"
                 placeholder="Password"
                 {...register("password")}
                 error={
-                    errors.password ? 
-                    <p>{errors.password.message}</p> 
-                    : null
+                    errors.password ?
+                        <p>{errors.password.message}</p>
+                        : null
                 }
             />
 
