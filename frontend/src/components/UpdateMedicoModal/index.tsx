@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { InputDiv } from "../InputDiv";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form"
@@ -7,6 +7,7 @@ import { ChamadoContext } from "../../contexts/ChamadoContext";
 import { ToastContainer } from "react-toastify";
 import { MedicoContext } from "../../contexts/MedicoContext";
 import { IUpdateChamado } from "../../interfaces/ChamadoInterfaces";
+import { StyledDiv } from "./style";
 
 export const UpdateMedicoModal = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<TUpdateMedicoFormValues>({
@@ -14,10 +15,33 @@ export const UpdateMedicoModal = () => {
     })
 
     const { updateChamado, chamadoList } = useContext(ChamadoContext);
-    const { medicoList } = useContext(MedicoContext);
+    const { medicoList, medicoPorChamado, isModalOpen, setIsModalOpen } = useContext(MedicoContext)
+
+    const modalRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const handleOutclick = (event: MouseEvent) => {
+            if (!modalRef.current?.contains(event.target as Node)) {
+                setIsModalOpen(false);
+            }
+        }
+
+        const handleEscKey = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setIsModalOpen(false);
+            }
+        }
+
+        window.addEventListener("mousedown", handleOutclick)
+        window.addEventListener("keydown", handleEscKey)
+
+        return () => {
+            window.removeEventListener("mousedown", handleOutclick);
+            window.removeEventListener("keydown", handleEscKey);
+        }
+    }, [])
 
     const submit = (formData: TUpdateMedicoFormValues) => {
-        let medico_cd 
+        let medico_cd
         const nr_chamado = localStorage.getItem("@senneLiquorNR_CHAMADO")
         if (formData.nm_medico !== "") {
             const medico = medicoList.filter(medico => medico.nm_medico === formData.nm_medico)
@@ -40,8 +64,9 @@ export const UpdateMedicoModal = () => {
         updateChamado(data)
     }
     return (
-        <div>
-            <div>
+        <StyledDiv role="dialog">
+            <div ref={modalRef}>
+                <button onClick={() => setIsModalOpen(false)}>X</button>
                 <form onSubmit={handleSubmit(submit)}>
                     <InputDiv
                         is_select={false}
@@ -58,8 +83,15 @@ export const UpdateMedicoModal = () => {
                     <button type="submit">Atualizar</button>
                     <ToastContainer />
                 </form>
+                <ul>
+                    {medicoList.map(medico => (
+                        <li key={medico.cd_medico}>
+                            {medico.nm_medico}: {medicoPorChamado[medico.cd_medico]} chamados
+                        </li>
+                    ))}
+                </ul>
             </div>
-        </div>
+        </StyledDiv>
     )
 }
 

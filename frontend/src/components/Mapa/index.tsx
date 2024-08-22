@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IHospital } from '../../interfaces/HospitalInterfaces';
 import { HospitalContext } from '../../contexts/HospitalContext';
@@ -57,9 +57,11 @@ export const Mapa = () => {
                 })}
             </GoogleMap>
             {selectedHospital && (
+                <>
                 <h2>Hospital Selecionado: {selectedHospital.nm_hospital}</h2>
+                <p>Chamados: {chamadosPorHospital[selectedHospital.cd_hospital]}</p>
+                </>
             )}
-            <h2>Chamados por Médico:</h2>
             <ul>
                 {medicoList.map(medico => (
                     <li key={medico.cd_medico}>
