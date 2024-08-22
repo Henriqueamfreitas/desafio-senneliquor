@@ -1,10 +1,7 @@
-import { useContext } from "react";
 import { Header } from "../../components/Header"
 import { Mapa } from "../../components/Mapa";
-import { HospitalContext } from "../../contexts/HospitalContext";
-export const MapaChamadoPage = () => {
-    const { hospitalList } = useContext(HospitalContext)
 
+export const MapaChamadoPage = () => {
     return (
         <>
             <Header />

@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IHospital } from '../../interfaces/HospitalInterfaces';
-import { ChamadoContext } from '../../contexts/ChamadoContext';
 import { HospitalContext } from '../../contexts/HospitalContext';
 import { MedicoContext } from '../../contexts/MedicoContext';
 
@@ -10,15 +9,10 @@ const mapContainerStyle = {
     width: "100%",
 };
 
-// Defina Campinas como o centro do mapa
 const center = {
-    lat: -23.5505,  // Latitude de Campinas
-    lng: -46.6333,  // Longitude de Campinas
+    lat: -23.5505,  
+    lng: -46.6333,  
 };
-
-interface ChamadosPorMedico {
-    [cd_medico: number]: number;
-}
 
 const getMarkerIcon = (numero_chamados: number) => {
     let color = 'blue';
@@ -84,9 +78,3 @@ export const Mapa = () => {
         </LoadScript>
     );
 };
-
-
-
-
-
-// CONTAR OS SEM CHAMADOS

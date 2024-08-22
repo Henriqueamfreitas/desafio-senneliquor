@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NovoChamadoFormSchema, TNovoChamadoFormValues } from "./NovoChamadoFormSchema";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify'
 import { InputDiv } from "../InputDiv";
 import { ChamadoContext } from "../../contexts/ChamadoContext";
