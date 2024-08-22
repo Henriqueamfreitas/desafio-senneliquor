@@ -7,6 +7,7 @@ export const MedicoContext = createContext({} as IMedicoContext);
 export const MedicoProvider = ({ children }: IMedicoProviderProps) => {
     const [medicoList, setMedicoList] = useState<IMedico[]>([])
     const [isLoading, setIsLoading] = useState(true)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     useEffect(() => {
         const token = localStorage.getItem("@senneLiquorTOKEN")
         const getMedico = async () => {
@@ -30,7 +31,7 @@ export const MedicoProvider = ({ children }: IMedicoProviderProps) => {
 
     return (
         <MedicoContext.Provider
-            value={{ medicoList }}
+            value={{ medicoList, isModalOpen, setIsModalOpen }}
         >
             {children}
         </MedicoContext.Provider>

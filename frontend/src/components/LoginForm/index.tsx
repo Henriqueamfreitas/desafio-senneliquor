@@ -25,7 +25,7 @@ export const LoginForm = () => {
                 is_select={false}
                 label="Username"
                 type="text"
-                placeholder="username"
+                placeholder="Username"
                 {...register("username")}
                 error={
                     errors.username ?

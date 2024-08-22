@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { IHospital } from '../../interfaces/HospitalInterfaces';
-import { ChamadoContext } from '../../contexts/ChamadoContext';
+import React, { useContext, useState } from "react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { IHospital } from "../../interfaces/HospitalInterfaces";
+import { ChamadoContext } from "../../contexts/ChamadoContext";
 
 const mapContainerStyle = {
     height: "400px",
@@ -18,12 +18,12 @@ interface ChamadosPorHospital {
 }
 
 const getMarkerIcon = (numero_chamados: number) => {
-    let color = 'blue'; 
+    let color = "blue"; 
 
     if (numero_chamados > 10) {
-        color = 'red';  
+        color = "red";  
     } else if (numero_chamados > 5) {
-        color = 'yellow'; 
+        color = "yellow"; 
     }
 
     const iconUrl = `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;

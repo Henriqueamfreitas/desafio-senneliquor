@@ -4,7 +4,9 @@ export interface IMedico {
 }
 
 export interface IMedicoContext {
-    medicoList: IMedico[]
+    medicoList: IMedico[],
+    isModalOpen: boolean, 
+    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export interface IMedicoProviderProps {

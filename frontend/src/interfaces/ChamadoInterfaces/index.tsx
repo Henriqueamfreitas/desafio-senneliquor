@@ -20,13 +20,17 @@ export interface ICreateChamado {
     nm_paciente: string,
 }
 
+export type IUpdateChamado = Partial<ICreateChamado>;
+
 export interface IChamadoProviderProps {
     children: React.ReactNode
 }
 
 export interface IChamadoContext {
     chamadoList: IChamado[],
-    createChamado: (newChamado: ICreateChamado) => Promise<void>
+    createChamado: (newChamado: ICreateChamado) => Promise<void>,
+    isLoading: boolean,
+    updateChamado: (newChamado: IUpdateChamado) => Promise<void>
 }
 
 

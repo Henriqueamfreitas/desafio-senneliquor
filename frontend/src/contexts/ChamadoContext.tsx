@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import 'react-toastify/dist/ReactToastify.css';
-import { IChamado, IChamadoContext, IChamadoProviderProps, ICreateChamado } from "../interfaces/ChamadoInterfaces";
+import { IChamado, IChamadoContext, IChamadoProviderProps, ICreateChamado, IUpdateChamado } from "../interfaces/ChamadoInterfaces";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
@@ -50,10 +50,32 @@ export const ChamadoProvider = ({ children }: IChamadoProviderProps) => {
             })
         }
     }
+    const updateChamado = async (newChamado: IUpdateChamado) => {
+        const token = localStorage.getItem("@senneLiquorTOKEN")
+        try {
+            const nr_chamado = localStorage.getItem("@senneLiquorNR_CHAMADO")
+            await api.patch(`/chamados/${nr_chamado}`, newChamado, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            toast.success("Chamado atualizado com sucesso", {
+                autoClose: 1500
+            })
+            window.location.reload();
+
+        } catch (error) {
+            const currentError = error as AxiosError<string>
+            console.log(currentError)
+            toast.error(currentError.response?.data.message, {
+                autoClose: 2000
+            })
+        }
+    }
 
     return (
         <ChamadoContext.Provider
-            value={{ chamadoList, createChamado }}
+            value={{ chamadoList, createChamado, isLoading, updateChamado }}
         >
             {children}
         </ChamadoContext.Provider>

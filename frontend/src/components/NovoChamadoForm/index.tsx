@@ -47,8 +47,6 @@ export const NovoChamadoForm = () => {
             ie_status_chamado: formData.ie_status_chamado,
             medico: medico_cd
         }
-        // loginUser(formData)
-        // console.log(formData)
         createChamado(data)
     }
     return (
