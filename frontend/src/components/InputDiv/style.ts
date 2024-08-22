@@ -9,7 +9,7 @@ export const StyledInputDiv = styled.div`
         height: 3rem;
         border-radius: .25rem;
         border: solid 0.0625rem var(--color-orange1);
-        background-color: var(--color-grey2);
+        background-color: var(--color-white);
         padding: 0rem 1rem;
         color: var(--color-grey0);
         font-family: "Inter", sans-serif;

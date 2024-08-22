@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom"
 import { UserContext } from "../../contexts/UserContext"
 import { useContext, useEffect } from "react"
+import { StyledHeader } from "./style"
+import logo from "../../assets/logo_senne.png"
 
 export const Header = () => {
     const { logoutUser } = useContext(UserContext)
@@ -18,7 +20,8 @@ export const Header = () => {
     }, [location.pathname]);
 
     return (
-        <header>
+        <StyledHeader>
+            <img src={logo} alt="" />
             <div>
                 <Link to="/lista-chamados">
                     Lista de Chamados
@@ -31,6 +34,6 @@ export const Header = () => {
                 </Link>
             </div>
             <button onClick={logoutUser}>LogOut</button>
-        </header>
+        </StyledHeader>
     )
 }
