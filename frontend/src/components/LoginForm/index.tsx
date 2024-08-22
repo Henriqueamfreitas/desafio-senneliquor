@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { ToastContainer } from 'react-toastify'
 import { InputDiv } from "../InputDiv";
+import { StyledLoginForm } from "./style";
 
 export const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<TLoginFormValues>({
@@ -17,7 +18,7 @@ export const LoginForm = () => {
         loginUser(formData)
     }
     return (
-        <form onSubmit={handleSubmit(submit)}>
+        <StyledLoginForm onSubmit={handleSubmit(submit)}>
             <h2>LOGIN</h2>
 
             <InputDiv
@@ -48,6 +49,6 @@ export const LoginForm = () => {
 
             <button type="submit">Login</button>
             <ToastContainer />
-        </form>
+        </StyledLoginForm>
     )
 }

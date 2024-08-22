@@ -1,4 +1,5 @@
 import { forwardRef, ForwardedRef, InputHTMLAttributes, SelectHTMLAttributes } from "react";
+import { StyledInputDiv } from "./style";
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: React.ReactNode;
@@ -9,7 +10,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const InputDiv = forwardRef(({ label, is_select, error, options, ...rest }: IInputProps & SelectHTMLAttributes<HTMLSelectElement>, ref: ForwardedRef<HTMLInputElement | HTMLSelectElement>) => {
     return (
-        <div>
+        <StyledInputDiv>
             <label>{label}</label>
             {
                 is_select ? 
@@ -33,6 +34,6 @@ export const InputDiv = forwardRef(({ label, is_select, error, options, ...rest 
                     </>
                 )
             }
-        </div>
+        </StyledInputDiv>
     );
 });

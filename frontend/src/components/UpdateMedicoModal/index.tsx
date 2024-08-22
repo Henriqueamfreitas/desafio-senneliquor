@@ -15,7 +15,7 @@ export const UpdateMedicoModal = () => {
     })
 
     const { updateChamado, chamadoList } = useContext(ChamadoContext);
-    const { medicoList, medicoPorChamado, isModalOpen, setIsModalOpen } = useContext(MedicoContext)
+    const { medicoList, medicoPorChamado, setIsModalOpen } = useContext(MedicoContext)
 
     const modalRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
