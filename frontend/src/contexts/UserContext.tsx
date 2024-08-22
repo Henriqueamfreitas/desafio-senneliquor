@@ -26,7 +26,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
             },
                 2500
             )
-            toast.success("You are being redirected to the home page", {
+            toast.success("Você está sendo redirecionado para a página de Chamados", {
                 autoClose: 2000
             })
 

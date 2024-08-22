@@ -7,6 +7,7 @@ export interface IMedicoContext {
     medicoList: IMedico[],
     isModalOpen: boolean, 
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    medicoPorChamado: Record<number, number>
 }
 
 export interface IMedicoProviderProps {

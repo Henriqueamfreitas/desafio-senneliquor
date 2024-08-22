@@ -6,7 +6,8 @@ export interface IHospital {
 }
 
 export interface IHospitalContext{
-    hospitalList: IHospital[]
+    hospitalList: IHospital[],
+    chamadosPorHospital: Record<number, number>,
 }
 
 export interface IHospitalProviderProps{

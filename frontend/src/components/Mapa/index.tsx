@@ -1,50 +1,44 @@
-import React, { useContext, useState } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import { IHospital } from "../../interfaces/HospitalInterfaces";
-import { ChamadoContext } from "../../contexts/ChamadoContext";
+import React, { useContext, useState } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { IHospital } from '../../interfaces/HospitalInterfaces';
+import { ChamadoContext } from '../../contexts/ChamadoContext';
+import { HospitalContext } from '../../contexts/HospitalContext';
+import { MedicoContext } from '../../contexts/MedicoContext';
 
 const mapContainerStyle = {
     height: "400px",
     width: "100%",
 };
 
+// Defina Campinas como o centro do mapa
 const center = {
-    lat: -3.745,
-    lng: -38.523,
+    lat: -23.5505,  // Latitude de Campinas
+    lng: -46.6333,  // Longitude de Campinas
 };
 
-interface ChamadosPorHospital {
-    [cd_hospital: number]: number;
+interface ChamadosPorMedico {
+    [cd_medico: number]: number;
 }
 
 const getMarkerIcon = (numero_chamados: number) => {
-    let color = "blue"; 
+    let color = 'blue';
 
-    if (numero_chamados > 10) {
-        color = "red";  
-    } else if (numero_chamados > 5) {
-        color = "yellow"; 
+    if (numero_chamados > 15) {
+        color = 'red';
+    } else if (numero_chamados > 10) {
+        color = 'yellow';
     }
 
     const iconUrl = `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;
     return iconUrl;
 }
 
-export const Mapa: React.FC<{ hospitais: IHospital[] }> = ({ hospitais }) => {
-    const [selectedHospital, setSelectedHospital] = useState<IHospital | null>()
-    const { chamadoList } = useContext(ChamadoContext);
+export const Mapa = () => {
+    const [selectedHospital, setSelectedHospital] = useState<IHospital | null>(null);
+    const { chamadosPorHospital, hospitalList } = useContext(HospitalContext);
+    const { medicoList, medicoPorChamado } = useContext(MedicoContext);
 
-    const chamadosPorHospital: ChamadosPorHospital = hospitais.reduce((acc, hospital) => {
-        acc[hospital.cd_hospital] = 0;
-        return acc;
-    }, {} as ChamadosPorHospital);
-
-    chamadoList.forEach(chamado => {
-        if (chamadosPorHospital.hasOwnProperty(chamado.hospital.cd_hospital)) {
-            chamadosPorHospital[chamado.hospital.cd_hospital] += 1;
-        }
-    });
-
+    
     return (
         <LoadScript
             googleMapsApiKey="AIzaSyDDOFBnPaEVP5k9nM4R5RzBomYe8rTj2w4"
@@ -54,7 +48,7 @@ export const Mapa: React.FC<{ hospitais: IHospital[] }> = ({ hospitais }) => {
                 center={center}
                 zoom={10}
             >
-                {hospitais.map(hospital => {
+                {hospitalList.map(hospital => {
                     const iconUrl = getMarkerIcon(chamadosPorHospital[hospital.cd_hospital]);
                     return (
                         <Marker
@@ -63,13 +57,36 @@ export const Mapa: React.FC<{ hospitais: IHospital[] }> = ({ hospitais }) => {
                             label={hospital.nm_hospital}
                             icon={iconUrl}
                             onClick={() => {
-                                setSelectedHospital(hospital)
+                                setSelectedHospital(hospital);
                             }}
                         />
                     );
                 })}
             </GoogleMap>
-            <h2>{selectedHospital?.nm_hospital}</h2>
+            {selectedHospital && (
+                <h2>Hospital Selecionado: {selectedHospital.nm_hospital}</h2>
+            )}
+            <h2>Chamados por Médico:</h2>
+            <ul>
+                {medicoList.map(medico => (
+                    <li key={medico.cd_medico}>
+                        {medico.nm_medico}: {medicoPorChamado[medico.cd_medico]} chamados
+                    </li>
+                ))}
+            </ul>
+            <ul>
+                {hospitalList.map(hospital => (
+                    <li key={hospital.cd_hospital}>
+                        {hospital.nm_hospital}: {chamadosPorHospital[hospital.cd_hospital]} chamados
+                    </li>
+                ))}
+            </ul>
         </LoadScript>
     );
 };
+
+
+
+
+
+// CONTAR OS SEM CHAMADOS
