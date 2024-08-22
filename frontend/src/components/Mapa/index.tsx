@@ -1,17 +1,17 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IHospital } from '../../interfaces/HospitalInterfaces';
 import { HospitalContext } from '../../contexts/HospitalContext';
 import { MedicoContext } from '../../contexts/MedicoContext';
 
 const mapContainerStyle = {
-    height: "400px",
-    width: "100%",
+    height: "35vh",
+    width: "80%",
 };
 
 const center = {
-    lat: -23.5505,  
-    lng: -46.6333,  
+    lat: -22.8115,  
+    lng: -47.1121,  
 };
 
 const getMarkerIcon = (numero_chamados: number) => {
@@ -32,7 +32,6 @@ export const Mapa = () => {
     const { chamadosPorHospital, hospitalList } = useContext(HospitalContext);
     const { medicoList, medicoPorChamado } = useContext(MedicoContext);
 
-    
     return (
         <LoadScript
             googleMapsApiKey="AIzaSyDDOFBnPaEVP5k9nM4R5RzBomYe8rTj2w4"

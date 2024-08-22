@@ -1,9 +1,22 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { UserContext } from "../../contexts/UserContext"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 
 export const Header = () => {
     const { logoutUser } = useContext(UserContext)
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === '/mapa-chamados') {
+            if (!localStorage.getItem('mapReloaded')) {
+                localStorage.setItem('mapReloaded', 'true');
+                window.location.reload(); 
+            }
+        } else {
+            localStorage.removeItem('mapReloaded');
+        }
+    }, [location.pathname]);
+
     return (
         <header>
             <div>
