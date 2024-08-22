@@ -48,6 +48,7 @@ const retrieve = async (chamadoId: number): Promise<ChamadoReturn> => {
     return chamadoSchemas.chamadoReturnSchema.parse(chamado);
 };
 
+
 const patch = async (chamadoId: number, payload: ChamadoUpdate2): Promise<ChamadoReturn> => {
     const chamado = await chamadoRepositories.findOne({
         relations: ['medico', 'hospital'],
@@ -58,32 +59,21 @@ const patch = async (chamadoId: number, payload: ChamadoUpdate2): Promise<Chamad
 
     if (!chamado) throw new AppError("Chamado not found", 404);
 
-    let hospitalPartial: DeepPartial<Hospital> | undefined = undefined;
-
     if (payload.hospital) {
         const hospital = await hospitalRepositories.findOneBy({ cd_hospital: payload.hospital });
         if (!hospital) throw new AppError("Hospital not found", 404);
-
-        hospitalPartial = { cd_hospital: hospital.cd_hospital };
+        chamado.hospital = hospital;
     }
 
-    let medicoPartial: DeepPartial<Medico> | undefined = undefined;
-
-    if (payload.hospital) {
+    if (payload.medico) {
         const medico = await medicoRepositories.findOneBy({ cd_medico: payload.medico });
         if (!medico) throw new AppError("Medico not found", 404);
-
-        medicoPartial = { cd_medico: medico.cd_medico };
+        chamado.medico = medico; 
     }
-    
-    const chamadoPartial: DeepPartial<Chamado> = {
-        ...chamado,
-        ...payload,
-        hospital: hospitalPartial,
-        medico: medicoPartial
-    };
 
-    await chamadoRepositories.save(chamadoPartial);
+    Object.assign(chamado, payload);
+
+    await chamadoRepositories.save(chamado);
 
     const chamadoUpdated = await chamadoRepositories.findOne({
         relations: ['medico', 'hospital'],

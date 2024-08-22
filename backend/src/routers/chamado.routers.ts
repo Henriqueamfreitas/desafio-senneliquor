@@ -23,6 +23,7 @@ chamadoRouter.get("/:nr_chamado",
 
 chamadoRouter.patch("/:nr_chamado",
     middlewares.verifyToken,
+    middlewares.validateBody(chamadoSchemas.chamadoCreateSchema),
     chamadoControllers.patch
 );
 
