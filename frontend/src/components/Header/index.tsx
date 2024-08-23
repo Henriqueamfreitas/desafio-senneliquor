@@ -21,7 +21,7 @@ export const Header = () => {
 
     return (
         <StyledHeader>
-            <img src={logo} alt="" />
+            <img src={logo} alt="Logo" />
             <div>
                 <Link to="/lista-chamados">
                     Lista de Chamados
