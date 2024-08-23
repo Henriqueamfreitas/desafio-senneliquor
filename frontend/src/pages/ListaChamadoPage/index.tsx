@@ -12,7 +12,6 @@ export const ListaChamadoPage = () => {
     return (
         <>
             <Header />
-            <h1>ListaChamadoPage</h1>
             {
                 isModalOpen ? 
                 <UpdateMedicoModal />:

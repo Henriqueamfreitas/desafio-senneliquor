@@ -4,7 +4,7 @@ export const StyledHeader = styled.header`
     display: flex;
     height: 15vh;
     justify-content: space-between;
-    padding: 0rem 3rem;
+    padding: 0rem 5rem;
     align-items: center;
     border-bottom: var(--color-orange1) solid 3px;
     img{

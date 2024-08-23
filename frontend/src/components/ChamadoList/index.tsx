@@ -2,11 +2,12 @@ import { useContext } from "react"
 import { ChamadoContext } from "../../contexts/ChamadoContext"
 import { ChamadoCard } from "../ChamadoCard"
 import { IChamado } from "../../interfaces/ChamadoInterfaces"
+import { StyledChamadoList } from "./style"
 
 export const ChamadoList = () => {
     const { chamadoList } = useContext(ChamadoContext)
     return(
-        <ul>
+        <StyledChamadoList>
             {
                 chamadoList?.map((chamado: IChamado) => {
                     return(
@@ -14,6 +15,6 @@ export const ChamadoList = () => {
                     )
                 })
             }
-        </ul>
+        </StyledChamadoList>
     )
 }

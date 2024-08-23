@@ -66,7 +66,7 @@ export const UpdateMedicoModal = () => {
     return (
         <StyledDiv role="dialog">
             <div ref={modalRef}>
-                <button onClick={() => setIsModalOpen(false)}>X</button>
+                <button className="closeModalButton" onClick={() => setIsModalOpen(false)}>X</button>
                 <form onSubmit={handleSubmit(submit)}>
                     <InputDiv
                         is_select={false}
@@ -84,6 +84,7 @@ export const UpdateMedicoModal = () => {
                     <ToastContainer />
                 </form>
                 <ul>
+                    <h3>Lista de Médicos</h3>
                     {medicoList.map(medico => (
                         <li key={medico.cd_medico}>
                             {medico.nm_medico}: {medicoPorChamado[medico.cd_medico]} chamados
