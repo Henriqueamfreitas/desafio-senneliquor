@@ -9,7 +9,7 @@ import swaggerDocs from "../src/swagger.json";
 const app: Application = express();
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "https://frontend-chi-two-72.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], 
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
