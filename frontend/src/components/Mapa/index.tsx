@@ -2,11 +2,10 @@ import { useContext, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IHospital } from '../../interfaces/HospitalInterfaces';
 import { HospitalContext } from '../../contexts/HospitalContext';
-import { MedicoContext } from '../../contexts/MedicoContext';
 
 const mapContainerStyle = {
-    height: "35vh",
-    width: "80%",
+    height: "55vh",
+    width: "100%",
 };
 
 const center = {
@@ -30,7 +29,6 @@ const getMarkerIcon = (numero_chamados: number) => {
 export const Mapa = () => {
     const [selectedHospital, setSelectedHospital] = useState<IHospital | null>(null);
     const { chamadosPorHospital, hospitalList } = useContext(HospitalContext);
-    const { medicoList, medicoPorChamado } = useContext(MedicoContext);
 
     return (
         <LoadScript
@@ -59,23 +57,9 @@ export const Mapa = () => {
             {selectedHospital && (
                 <>
                 <h2>Hospital Selecionado: {selectedHospital.nm_hospital}</h2>
-                <p>Chamados: {chamadosPorHospital[selectedHospital.cd_hospital]}</p>
+                <p>Número de Chamados: {chamadosPorHospital[selectedHospital.cd_hospital]}</p>
                 </>
             )}
-            <ul>
-                {medicoList.map(medico => (
-                    <li key={medico.cd_medico}>
-                        {medico.nm_medico}: {medicoPorChamado[medico.cd_medico]} chamados
-                    </li>
-                ))}
-            </ul>
-            <ul>
-                {hospitalList.map(hospital => (
-                    <li key={hospital.cd_hospital}>
-                        {hospital.nm_hospital}: {chamadosPorHospital[hospital.cd_hospital]} chamados
-                    </li>
-                ))}
-            </ul>
         </LoadScript>
     );
 };
