@@ -7,6 +7,7 @@ import { InputDiv } from "../InputDiv";
 import { ChamadoContext } from "../../contexts/ChamadoContext";
 import { HospitalContext } from "../../contexts/HospitalContext";
 import { MedicoContext } from "../../contexts/MedicoContext";
+import { StyledNovoChamadoForm } from "./style";
 
 export const NovoChamadoForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<TNovoChamadoFormValues>({
@@ -49,9 +50,7 @@ export const NovoChamadoForm = () => {
         createChamado(data)
     }
     return (
-        <form onSubmit={handleSubmit(submit)}>
-            <h2>Novo Chamado</h2>
-
+        <StyledNovoChamadoForm onSubmit={handleSubmit(submit)}>
             <InputDiv
                 type="text"
                 label="Nome do Paciente"
@@ -143,6 +142,6 @@ export const NovoChamadoForm = () => {
 
             <button type="submit">Adicionar</button>
             <ToastContainer />
-        </form>
+        </StyledNovoChamadoForm>
     )
 }
