@@ -7,14 +7,12 @@ export const HospitalContext = createContext({} as IHospitalContext);
 
 export const HospitalProvider = ({ children }: IHospitalProviderProps) => {
     const [hospitalList, setHospitalList] = useState<IHospital[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
     const { chamadoList } = useContext(ChamadoContext);
 
     useEffect(() => {
         const token = localStorage.getItem("@senneLiquorTOKEN");
         const getHospital = async () => {
             try {
-                setIsLoading(true);
                 const response = await api.get("/hospital", {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -24,7 +22,6 @@ export const HospitalProvider = ({ children }: IHospitalProviderProps) => {
             } catch (error) {
                 console.log(error);
             } finally {
-                setIsLoading(false);
             }
         };
         getHospital();
