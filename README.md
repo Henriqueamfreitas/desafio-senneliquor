@@ -1,4 +1,4 @@
-# Desafio Dev Fullstack Senne Liquor !!
+# Desafio Dev Fullstack Senne Liquor !!!
 O objetivo do nosso desafio é buscar possíveis candidatos para entrar no nosso time de desenvolvimento. 
 
 Não exigimos a entrega de um projeto 100% funcional, porém, faça o melhor para demonstrar seus conhecimentos em Javascript. 
